@@ -1,0 +1,74 @@
+﻿<dx:ThemedWindow 
+    x:Class="OCTiS.Knx.HomeAutomationConfigurator.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+    xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+    xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon"
+    xmlns:dxre="http://schemas.devexpress.com/winfx/2008/xaml/richedit"
+    xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol" 
+    xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+    xmlns:local="clr-namespace:OCTiS.Knx.HomeAutomationConfigurator"
+    DataContext="{dxmvvm:ViewModelSource Type={x:Type local:MainWindowModel}}"
+    WindowState="Maximized"
+    Title="OCTiS Knx HomeAutomationConfigurator"
+>
+    <dx:ThemedWindow.Resources>
+        <dxre:RtfToContentConverter x:Key="rtfToContentConverter" />
+    </dx:ThemedWindow.Resources>
+    <dxmvvm:Interaction.Behaviors>
+        <dxmvvm:EventToCommand EventName="Loaded" Command="{Binding DocumentLoadedCommand}" CommandParameter="{Binding Path=Document, ElementName=richEditControl}" />
+    </dxmvvm:Interaction.Behaviors>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <dxr:RibbonControl Grid.Row="0" RibbonStyle="OfficeSlim" ShowApplicationButton="False">
+            <dxr:RibbonDefaultPageCategory>
+                <dxr:RibbonPage Caption="Home">
+                    <dxr:RibbonPageGroup Caption="File">
+                        <dxb:BarButtonItem Content="Open Knxproj" Command="{Binding OpenFileCommand}" Glyph="{dx:DXImage 'SvgImages/Actions/Open.svg'}"/>
+                        <dxb:BarItemSeparator/>
+                    </dxr:RibbonPageGroup>
+                </dxr:RibbonPage>
+            </dxr:RibbonDefaultPageCategory>
+        </dxr:RibbonControl>
+        <dxr:RibbonStatusBarControl DockPanel.Dock="Bottom">
+            <dxr:RibbonStatusBarControl.RightItems>
+                <dxb:BarButtonItem x:Name="printItem" Content="Print" Glyph="{dx:DXImage 'SvgImages/Print/Print.svg'}"/>
+            </dxr:RibbonStatusBarControl.RightItems>
+        </dxr:RibbonStatusBarControl>
+        <dxlc:LayoutControl Grid.Row="1" Orientation="Horizontal">
+            <dxlc:LayoutGroup>
+                <dxg:GridControl
+                    ItemsSource="{Binding GroupAddressInfos}"
+                    SelectedItems="{Binding SelectedGroupAddressInfos}"
+                    AutoGenerateColumns="AddNew"
+                    SelectionMode="MultipleRow"
+                >
+                    <dxg:GridControl.View>
+                        <dxg:TableView BestFitMode="VisibleRows" ShowCheckBoxSelectorColumn="True" />
+                    </dxg:GridControl.View>
+                </dxg:GridControl>
+                <dxlc:LayoutGroup Orientation="Vertical" VerticalAlignment="Center" Width="150">
+                    <Button Content="-name" Command="{Binding InsertNameCommand}" Height="25" />
+                    <Button Content="address" CommandParameter="address" Command="{Binding InsertAnyCommand}" Height="25" />
+                    <Button Content="state_address" CommandParameter="state_address" Command="{Binding InsertAnyCommand}" Height="25" />
+                    <Button Content="move_long_address" CommandParameter="move_long_address" Command="{Binding InsertAnyCommand}" Height="25" />
+                    <Button Content="move_short_address" CommandParameter="move_short_address" Command="{Binding InsertAnyCommand}" Height="25" />
+                    <Button Content="type" CommandParameter="type" Command="{Binding InsertTypeCommand}" Height="25" />
+                    <ComboBox ItemsSource="{Binding ValueTypes}" SelectedItem="{Binding SelectedValueType}" Height="25" />
+                </dxlc:LayoutGroup>
+                <dxre:RichEditControl 
+                    x:Name="richEditControl" 
+                    ActiveViewType="Draft" 
+                    Loaded="richEditControl_Loaded"
+                    />
+            </dxlc:LayoutGroup>
+        </dxlc:LayoutControl>
+    </Grid>
+</dx:ThemedWindow>

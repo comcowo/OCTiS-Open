@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33122.133
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OCTiS.Knx.Model", "OCTiS.Knx\OCTiS.Knx.Model\OCTiS.Knx.Model.csproj", "{55D48243-9205-44C0-A6FF-0A9B75C3EB5C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OCTiS.Knx.Ets", "OCTiS.Knx\OCTiS.Knx.Ets\OCTiS.Knx.Ets.csproj", "{08C18153-2143-46AA-A029-93D2EBC5C354}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OCTiS.Knx.HomeAssistant", "OCTiS.Knx\OCTiS.Knx.HomeAssistant\OCTiS.Knx.HomeAssistant.csproj", "{92996ABB-D4F0-4E5D-81DA-ED22A0AE323A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OCTiS.Knx.HomeAutomationConfigurator", "OCTiS.Knx\OCTiS.Knx.HomeAutomationConfigurator\OCTiS.Knx.HomeAutomationConfigurator.csproj", "{763C4A6E-CA57-49DE-AB75-F8EC4F1A0239}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{55D48243-9205-44C0-A6FF-0A9B75C3EB5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55D48243-9205-44C0-A6FF-0A9B75C3EB5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55D48243-9205-44C0-A6FF-0A9B75C3EB5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55D48243-9205-44C0-A6FF-0A9B75C3EB5C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08C18153-2143-46AA-A029-93D2EBC5C354}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08C18153-2143-46AA-A029-93D2EBC5C354}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08C18153-2143-46AA-A029-93D2EBC5C354}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08C18153-2143-46AA-A029-93D2EBC5C354}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92996ABB-D4F0-4E5D-81DA-ED22A0AE323A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92996ABB-D4F0-4E5D-81DA-ED22A0AE323A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92996ABB-D4F0-4E5D-81DA-ED22A0AE323A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92996ABB-D4F0-4E5D-81DA-ED22A0AE323A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{763C4A6E-CA57-49DE-AB75-F8EC4F1A0239}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{763C4A6E-CA57-49DE-AB75-F8EC4F1A0239}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{763C4A6E-CA57-49DE-AB75-F8EC4F1A0239}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{763C4A6E-CA57-49DE-AB75-F8EC4F1A0239}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D870B1A5-E9CB-4F65-BD76-4FF6BBB689E2}
+	EndGlobalSection
+EndGlobal
