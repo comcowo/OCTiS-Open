@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?define PropertyCompanyName		= "OCTiS GmbH" ?>
+<?define PropertyProductName		= "OCTiS.Knx.HomeAutomationConfigurator" ?>
+<?define PropertyRegistryKeyPath	= "Software\$(var.PropertyCompanyName)\$(var.PropertyProductName)" ?>
+<?define PropertyTargetName			= "$(var.OCTiS.Knx.HomeAutomationConfigurator.TargetName)" ?>
+<?define PropertyTargetDir			= "$(var.OCTiS.Knx.HomeAutomationConfigurator.TargetDir)" ?>
+<?define PropertyTargetPath			= "$(var.PropertyTargetDir)$(var.PropertyProductName).exe" ?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Product 
+		Id="*" 
+		Name="OCTiS.Knx.Setup" 
+		Language="1033" 
+		Version="1.0.0.0" 
+		Manufacturer="$(var.PropertyCompanyName)" 
+		UpgradeCode="03f3d38e-a3fb-401d-828e-1b2b1d20a368">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+		<MajorUpgrade Schedule="afterInstallExecute" AllowDowngrades="no" AllowSameVersionUpgrades="yes" DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+		<MediaTemplate EmbedCab="yes" />
+
+		<Feature Id="ProductFeature" Title="OCTiS.Knx.Setup" Level="1">
+			<ComponentGroupRef Id="ProductTarget" />
+			<ComponentGroupRef Id="ProductShortCut" />
+			<ComponentGroupRef Id="ProductHeatHarvest" />
+		</Feature>
+	</Product>
+	
+	<Fragment>
+		<ComponentGroup Id="ProductTarget" Directory="ProgramFilesProductFolder">
+			<Component Id="ComponentTarget" Guid="{FCCAB907-6F56-4772-A4E4-80FD329B7A8A}" >
+				<CreateFolder/>
+				<!-- Remove LDAF folder at any time, since WiX will complain -->
+				<RemoveFolder Id="RemoveProgramFilesProductFolder"	Directory="ProgramFilesProductFolder"	On="uninstall" />
+				<RemoveFolder Id="RemoveProgramFilesCompanyFolder"	Directory="ProgramFilesCompanyFolder"	On="uninstall" />
+				<File Id="FileTarget" Source="$(var.PropertyTargetPath)" />
+				<RegistryValue Root="HKLM" Key="$(var.PropertyRegistryKeyPath)" Name="Version" Value="[ProductVersion]" Type="string" KeyPath="yes" />
+			</Component>
+		</ComponentGroup>
+		
+		<ComponentGroup Id="ProductShortCut" Directory="ProgramFilesProductFolder">
+			<!--Basic AddIn components -->
+			<Component Id="ComponentShortCut" Guid="{D085DE05-EE12-4ECA-BC1E-2DF6F7E1A70A}" >
+				<Shortcut Id="ShortCutMenu"
+						  Directory="ProgramMenuProductFolder"
+						  Name="$(var.PropertyProductName)"
+						  Description="$(var.PropertyProductName)"
+						  Target="[#FileTarget]"
+						  WorkingDirectory="ProgramFilesProductFolder"/>
+				<Shortcut Id="ShortCutDesktop"
+						  Directory="DesktopFolder"
+						  Name="$(var.PropertyProductName)"
+						  Description="$(var.PropertyProductName)"
+						  Target="[#FileTarget]"
+						  WorkingDirectory="ProgramFilesProductFolder"/>
+				<RegistryValue Root="HKCU" Key="$(var.PropertyRegistryKeyPath)" Name="Version" Value="[ProductVersion]" Type="string" KeyPath="yes" />
+			</Component>
+		</ComponentGroup>
+	</Fragment>
+	
+	<Fragment>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<!-- Start Menu Folder -->
+			<Directory Id="ProgramMenuFolder">
+				<Directory Id="ProgramMenuProductFolder" Name="OCTiS"/>
+			</Directory>
+			<Directory Id="DesktopFolder">
+			</Directory>
+
+			<Directory Id="ProgramFiles64Folder">
+				<Directory Id="ProgramFilesCompanyFolder" Name="OCTiS GmbH">
+					<Directory Id="ProgramFilesProductFolder" Name="OCTiS.Knx">
+					</Directory>
+				</Directory>
+			</Directory>
+		</Directory>
+	</Fragment>
+	
+</Wix>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" InitialTargets="EnsureWixToolsetInstalled" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>3.10</ProductVersion>
+    <ProjectGuid>0f2d1a39-dd3d-42a5-8e48-544e44bec4f9</ProjectGuid>
+    <SchemaVersion>2.0</SchemaVersion>
+    <OutputName>OCTiS.Knx.Setup</OutputName>
+    <OutputType>Package</OutputType>
+    <SuppressSpecificWarnings>1076</SuppressSpecificWarnings>
+	<SuppressValidation>true</SuppressValidation>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+    <DefineConstants>Debug</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="HeatHarvest.wxs" />
+    <Compile Include="Product.wxs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OCTiS.Knx.Ets\OCTiS.Knx.Ets.csproj">
+      <Name>OCTiS.Knx.Ets</Name>
+      <Project>{08c18153-2143-46aa-a029-93d2ebc5c354}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\OCTiS.Knx.HomeAssistant\OCTiS.Knx.HomeAssistant.csproj">
+      <Name>OCTiS.Knx.HomeAssistant</Name>
+      <Project>{92996abb-d4f0-4e5d-81da-ed22a0ae323a}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\OCTiS.Knx.HomeAutomationConfigurator\OCTiS.Knx.HomeAutomationConfigurator.csproj">
+      <Name>OCTiS.Knx.HomeAutomationConfigurator</Name>
+      <Project>{763c4a6e-ca57-49de-ab75-f8ec4f1a0239}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\OCTiS.Knx.Model\OCTiS.Knx.Model.csproj">
+      <Name>OCTiS.Knx.Model</Name>
+      <Project>{55d48243-9205-44c0-a6ff-0a9b75c3eb5c}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WixExtension Include="WixUtilExtension">
+      <HintPath>$(WixExtDir)\WixUtilExtension.dll</HintPath>
+      <Name>WixUtilExtension</Name>
+    </WixExtension>
+    <WixExtension Include="WixUIExtension">
+      <HintPath>$(WixExtDir)\WixUIExtension.dll</HintPath>
+      <Name>WixUIExtension</Name>
+    </WixExtension>
+    <WixExtension Include="WixNetFxExtension">
+      <HintPath>$(WixExtDir)\WixNetFxExtension.dll</HintPath>
+      <Name>WixNetFxExtension</Name>
+    </WixExtension>
+  </ItemGroup>  
+  <Import Project="$(WixTargetsPath)" Condition=" '$(WixTargetsPath)' != '' " />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets" Condition=" '$(WixTargetsPath)' == '' AND Exists('$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets') " />
+  <Target Name="EnsureWixToolsetInstalled" Condition=" '$(WixTargetsImported)' != 'true' ">
+    <Error Text="The WiX Toolset v3.11 (or newer) build tools must be installed to build this project. To download the WiX Toolset, see http://wixtoolset.org/releases/" />
+  </Target>
+  <PropertyGroup>
+    <AppName>OCTiS.Knx.HomeAutomationConfigurator</AppName>
+    <AppProjFullName>..\$(AppName)\$(AppName).csproj</AppProjFullName>
+    <AppBinPath>..\$(AppName)\bin\$(Configuration)\net6.0-windows\publish</AppBinPath>
+    <LinkerBindInputPaths>$(AppBinPath)</LinkerBindInputPaths>
+    <DefineConstants>BasePath=$(AppBinPath)</DefineConstants>
+  </PropertyGroup>
+  <Target Name="BeforeBuild">
+    <HeatDirectory OutputFile="HeatHarvest.wxs" DirectoryRefId="ProgramFilesProductFolder" ComponentGroupName="ProductHeatHarvest" SuppressCom="true" Directory="$(AppBinPath)" RunAsSeparateProcess="$(RunWixToolsOutOfProc)" SuppressFragments="true" SuppressRegistry="true" SuppressRootDirectory="true" AutoGenerateGuids="false" GenerateGuidsNow="true" ToolPath="$(WixToolPath)" PreprocessorVariable="var.BasePath" />
+  </Target>
+</Project>
