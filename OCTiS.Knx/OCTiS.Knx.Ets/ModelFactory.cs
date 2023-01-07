@@ -96,7 +96,7 @@ namespace OCTiS.Knx.Model
 			{
 				XNamespace ns = e.Name.Namespace;
                 //var language = e.Parent.Parent.Element(ns + "Languages").Elements().FirstOrDefault(row => row.Attribute("Identifier") != null && row.Attribute("Identifier").Value == "de-DE");
-                var language = e.Parent.Parent.Element(ns + "Languages").Elements().FirstOrDefault(row => row.Attribute("Identifier") != null);
+                var language = e.Parent.Parent.Element(ns + "Languages")?.Elements().FirstOrDefault(row => row.Attribute("Identifier") != null);
                 var ap = new ApplicationProgram()
 				{
 					Id = GetAttribute("Id", e),
