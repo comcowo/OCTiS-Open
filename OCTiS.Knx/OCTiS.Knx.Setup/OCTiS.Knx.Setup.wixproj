@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" InitialTargets="EnsureWixToolsetInstalled" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\Global.props" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
@@ -9,7 +10,7 @@
     <OutputName>OCTiS.Knx.Setup</OutputName>
     <OutputType>Package</OutputType>
     <SuppressSpecificWarnings>1076</SuppressSpecificWarnings>
-	<SuppressValidation>true</SuppressValidation>
+    <SuppressValidation>true</SuppressValidation>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>
@@ -71,7 +72,7 @@
       <HintPath>$(WixExtDir)\WixNetFxExtension.dll</HintPath>
       <Name>WixNetFxExtension</Name>
     </WixExtension>
-  </ItemGroup>  
+  </ItemGroup>
   <Import Project="$(WixTargetsPath)" Condition=" '$(WixTargetsPath)' != '' " />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets" Condition=" '$(WixTargetsPath)' == '' AND Exists('$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets') " />
   <Target Name="EnsureWixToolsetInstalled" Condition=" '$(WixTargetsImported)' != 'true' ">
@@ -82,7 +83,7 @@
     <AppProjFullName>..\$(AppName)\$(AppName).csproj</AppProjFullName>
     <AppBinPath>..\$(AppName)\bin\$(Configuration)\net6.0-windows\publish</AppBinPath>
     <LinkerBindInputPaths>$(AppBinPath)</LinkerBindInputPaths>
-    <DefineConstants>BasePath=$(AppBinPath)</DefineConstants>
+    <DefineConstants>$(DefineConstants);BasePath=$(AppBinPath);WiXProductVersion=$(PackageVersion);WiXCompanyName=$(Company)</DefineConstants>
   </PropertyGroup>
   <Target Name="BeforeBuild">
     <HeatDirectory OutputFile="HeatHarvest.wxs" DirectoryRefId="ProgramFilesProductFolder" ComponentGroupName="ProductHeatHarvest" SuppressCom="true" Directory="$(AppBinPath)" RunAsSeparateProcess="$(RunWixToolsOutOfProc)" SuppressFragments="true" SuppressRegistry="true" SuppressRootDirectory="true" AutoGenerateGuids="false" GenerateGuidsNow="true" ToolPath="$(WixToolPath)" PreprocessorVariable="var.BasePath" />

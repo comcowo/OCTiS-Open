@@ -1,5 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk" DefaultTargets="Build;Publish">
-
+  <Import Project="..\..\Global.props" />
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0-windows</TargetFramework>

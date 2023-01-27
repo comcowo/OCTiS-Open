@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?define PropertyCompanyName		= "OCTiS GmbH" ?>
 <?define PropertyProductName		= "OCTiS.Knx.HomeAutomationConfigurator" ?>
-<?define PropertyRegistryKeyPath	= "Software\$(var.PropertyCompanyName)\$(var.PropertyProductName)" ?>
+<?define PropertyRegistryKeyPath	= "Software\$(var.WiXCompanyName)\$(var.PropertyProductName)" ?>
 <?define PropertyTargetName			= "$(var.OCTiS.Knx.HomeAutomationConfigurator.TargetName)" ?>
 <?define PropertyTargetDir			= "$(var.OCTiS.Knx.HomeAutomationConfigurator.TargetDir)" ?>
 <?define PropertyTargetPath			= "$(var.PropertyTargetDir)$(var.PropertyProductName).exe" ?>
@@ -10,8 +9,8 @@
 		Id="*" 
 		Name="OCTiS.Knx.Setup" 
 		Language="1033" 
-		Version="1.0.2.0" 
-		Manufacturer="$(var.PropertyCompanyName)" 
+		Version="$(var.WiXProductVersion)" 
+		Manufacturer="$(var.WiXCompanyName)" 
 		UpgradeCode="03f3d38e-a3fb-401d-828e-1b2b1d20a368">
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 

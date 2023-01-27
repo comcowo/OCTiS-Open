@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <VersionPrefix>1.0</VersionPrefix>
+    <VersionSuffix>3.0</VersionSuffix>
+    <AssemblyVersion>$(VersionPrefix).$(VersionSuffix)</AssemblyVersion>
+    <PackageVersion>$(AssemblyVersion)</PackageVersion>
+    <FileVersion>$(AssemblyVersion)</FileVersion>
+    <Company>OCTiS GmbH</Company>  
+    <Copyright>MIT License - OCTiS GmbH</Copyright>  
+  </PropertyGroup>
+</Project>
