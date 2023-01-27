@@ -60,7 +60,7 @@
                     <Button Content="state_address" CommandParameter="state_address" Command="{Binding InsertAnyCommand}" Height="25" />
                     <Button Content="move_long_address" CommandParameter="move_long_address" Command="{Binding InsertAnyCommand}" Height="25" />
                     <Button Content="move_short_address" CommandParameter="move_short_address" Command="{Binding InsertAnyCommand}" Height="25" />
-                    <Button Content="type" CommandParameter="type" Command="{Binding InsertTypeCommand}" Height="25" />
+                    <Button Content="type" Command="{Binding InsertTypeCommand}" Height="25" />
                     <ComboBox ItemsSource="{Binding ValueTypes}" SelectedItem="{Binding SelectedValueType}" Height="25" />
                 </dxlc:LayoutGroup>
                 <dxre:RichEditControl 

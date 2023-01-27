@@ -25,7 +25,7 @@ namespace OCTiS.Knx.HomeAutomationConfigurator
         private string _TemplateText = "# Loads default set of integrations. Do not remove.\r\ndefault_config:\r\n\r\n# Load frontend themes from the themes folder\r\nfrontend:\r\n  themes: !include_dir_merge_named themes\r\n\r\n# Text to speech\r\ntts:\r\n  - platform: google_translate\r\n\r\nautomation: !include automations.yaml\r\nscript: !include scripts.yaml\r\nscene: !include scenes.yaml\r\n# Move cursor to line under category and push button\r\nknx:\r\n  cover:\r\n\r\n  light:\r\n\r\n  switch:\r\n\r\n  sensor:";
 
         public List<string> ValueTypes { get; } = new List<string> { "temperature", "percent", "wind_speed_kmh", "color_temperature" };
-        public virtual string ValueType { get; set; }
+        public virtual string SelectedValueType { get; set; }
         public virtual ObservableCollection<GroupAddressInfo> GroupAddressInfos { get; set; }
         public ObservableCollection<GroupAddressInfo> SelectedGroupAddressInfos { get; } = new ObservableCollection<GroupAddressInfo>();
 
@@ -72,12 +72,9 @@ namespace OCTiS.Knx.HomeAutomationConfigurator
                 InsertLine($"      {tag}: \"{groupAddressInfo.GroupAddress}\"");
             SelectedGroupAddressInfos.Clear();
         }
-        public bool CanInsertType(string tag) => true;
-        public void InsertType(string type)
-        {
-            foreach (var groupAddressInfo in SelectedGroupAddressInfos)
-                InsertLine($"      type: {type}");
-        }
+        public bool CanInsertType() => SelectedValueType != null;
+        public void InsertType()
+            => InsertLine($"      type: {SelectedValueType}");
         public void DocumentLoaded(object parameter)
         {
             _Document = parameter as DevExpress.XtraRichEdit.API.Native.Document;
